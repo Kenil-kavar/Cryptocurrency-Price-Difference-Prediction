@@ -1,0 +1,12 @@
+pandas
+requests
+keras-tuner
+tensorflow
+scikit-learn
+tensorflow
+matplotlib
+keras
+numpy
+Datetime
+openpyxl
+plot-keras-history
