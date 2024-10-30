@@ -5,7 +5,7 @@ from ml_model import MLModel
 from logger import logging as lg
 
 # Configuration details
-API_KEY = 'cbd0d860-9e34-4b7e-b9e3-057553e89012'  
+API_KEY = 'Your CoinAPI Key Paste Here'  
 CRYPTO_PAIR = "BTC/USD"
 TIMESTAMP="1HRS"
 START_DATE = "2021-01-01"
