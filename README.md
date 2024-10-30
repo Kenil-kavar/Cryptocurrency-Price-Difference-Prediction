@@ -54,12 +54,18 @@ Configuration
 
 
 API_KEY = "Your CoinAPI Key"
+
 CRYPTO_PAIR = "<your_crypto_pair>"
+
 TIMESTAMP = "<timestamp>"
+
 START_DATE = "<YYYY-MM-DD>"
+
 END_DATE = "<YYYY-MM-DD>"
-VARIABLE1 = <value>
-VARIABLE2 = <value>
+
+VARIABLE1 = (for eg 20)
+
+VARIABLE2 = (for eg 7)
 
 ### Run the Project
 ```
