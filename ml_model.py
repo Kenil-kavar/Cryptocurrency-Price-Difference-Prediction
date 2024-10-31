@@ -65,8 +65,8 @@ class MLModel:
                     units=hp.Int(f'lstm_units_{i}', min_value=32, max_value=256, step=64),
                     return_sequences=(i < 2),  # Only last LSTM layer does not return sequences
                     kernel_regularizer=l1_l2(
-                        l1=hp.Float(f'l1_reg_{i}', 1e-5, 1e-3, sampling="log"),
-                        l2=hp.Float(f'l2_reg_{i}', 1e-5, 1e-3, sampling="log")
+                        l1=hp.Float(f'l1_reg_{i}', 1e-6, 1e-3, sampling="log"),
+                        l2=hp.Float(f'l2_reg_{i}', 1e-6, 1e-3, sampling="log")
                     )
                 )))
                 model.add(Dropout(rate=hp.Float(f'dropout_{i}', min_value=0.1, max_value=0.3, step=0.05)))
@@ -91,7 +91,7 @@ class MLModel:
         tuner_high = kt.RandomSearch(
             build_model,
             objective='val_mae',
-            max_trials=10,
+            max_trials=20,
             executions_per_trial=1,
             directory='Hypertunning',
             project_name='high_prediction'
@@ -100,12 +100,12 @@ class MLModel:
         tuner_low = kt.RandomSearch(
             build_model,
             objective='val_mae',
-            max_trials=10,
+            max_trials=20,
             executions_per_trial=1,
             directory='Hypertunning',
             project_name='low_prediction'
         )
-        early_stopping = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)
+        early_stopping = EarlyStopping(monitor='val_loss', patience=25, restore_best_weights=True)
 
         tuner_high.search(X_train_high, y_train_high, epochs=10, validation_data=(X_test_high, y_test_high))
         tuner_low.search(X_train_low, y_train_low, epochs=10, validation_data=(X_test_low, y_test_low))
@@ -116,7 +116,7 @@ class MLModel:
 
         history_high = best_model_high.fit(X_train_high, y_train_high,
                                             validation_data=(X_test_high, y_test_high),
-                                            epochs=30,
+                                            epochs=80,
                                             batch_size=32,
                                             callbacks=[early_stopping])
         lg.info("best_model_high trained successfully")
@@ -138,7 +138,7 @@ class MLModel:
         history_low = best_model_low.fit(
             X_train_low, y_train_low,
             validation_data=(X_test_low, y_test_low),
-            epochs=30,
+            epochs=80,
             batch_size=32
         )
         lg.info("best_model_low trained successfully")
