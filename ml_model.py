@@ -65,11 +65,11 @@ class MLModel:
                     units=hp.Int(f'lstm_units_{i}', min_value=32, max_value=256, step=64),
                     return_sequences=(i < 2),  # Only last LSTM layer does not return sequences
                     kernel_regularizer=l1_l2(
-                        l1=hp.Float(f'l1_reg_{i}', 1e-6, 1e-3, sampling="log"),
-                        l2=hp.Float(f'l2_reg_{i}', 1e-6, 1e-3, sampling="log")
+                        l1=hp.Float(f'l1_reg_{i}', 1e-7, 1e-3, sampling="log"),
+                        l2=hp.Float(f'l2_reg_{i}', 1e-7, 1e-3, sampling="log")
                     )
                 )))
-                model.add(Dropout(rate=hp.Float(f'dropout_{i}', min_value=0.1, max_value=0.3, step=0.05)))
+                model.add(Dropout(rate=hp.Float(f'dropout_{i}', min_value=0.1, max_value=0.5, step=0.07)))
         
             # Fully connected layer
             model.add(Dense(32, activation='relu'))
@@ -109,6 +109,8 @@ class MLModel:
 
         tuner_high.search(X_train_high, y_train_high, epochs=10, validation_data=(X_test_high, y_test_high))
         tuner_low.search(X_train_low, y_train_low, epochs=10, validation_data=(X_test_low, y_test_low))
+        print(tuner_high.get_best_hyperparameters())
+        print(tuner_low.get_best_hyperparameters())
 
         best_model_high = tuner_high.get_best_models(num_models=1)[0]
         best_model_low = tuner_low.get_best_models(num_models=1)[0]
