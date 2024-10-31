@@ -5,13 +5,13 @@ from ml_model import MLModel
 from logger import logging as lg
 
 # Configuration details
-API_KEY = 'Your API KEY' 
+API_KEY = 'cbd0d860-9e34-4b7e-b9e3-057553e89012' 
 CRYPTO_PAIR = "BTC/USD"
 TIMESTAMP="1MIN"
-START_DATE = "2015-01-01"
+START_DATE = "2014-01-01"
 END_DATE = "2023-12-31"
 VARIABLE1 = 30    # look-back period for historical high and low metrics.
-VARIABLE2 = 10
+VARIABLE2 = 8
 
 def main():
     # Fetch crypto data
