@@ -186,9 +186,10 @@ class MLModel:
         
         # Plot predicted vs. actual for high target
         plt.figure(figsize=(14, 6))
-        plt.subplot(1, 2, 1)
-        plt.plot(predicted_high, label="Predicted % Diff From High", color="blue")
+        plt.subplot(1, 2, 2)
+        
         plt.plot(y_test_high, label="Actual % Diff From High", color="orange")
+        plt.plot(predicted_high, label="Predicted % Diff From High", color="blue")
         plt.title("Predicted vs Actual - % Diff From High Next 1 Day")
         plt.xlabel("Test Sample")
         plt.ylabel("% Difference")
@@ -197,8 +198,9 @@ class MLModel:
         
         # Plot predicted vs. actual for low target
         plt.subplot(1, 2, 2)
-        plt.plot(predicted_low, label="Predicted % Diff From Low", color="black")
+        
         plt.plot(y_test_low, label="Actual % Diff From Low", color="red")
+        plt.plot(predicted_low, label="Predicted % Diff From Low", color="black")
         plt.title("Predicted vs Actual - % Diff From Low Next 1 Day")
         plt.xlabel("Test Sample")
         plt.ylabel("% Difference")
